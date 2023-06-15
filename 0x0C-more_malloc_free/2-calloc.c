@@ -16,7 +16,7 @@ void *_calloc(unsigned int nmemb, unsigned int size)
 	if (nmemb <= 0 || size <= 0)
 		return (NULL);
 
-	array = malloc(sizeof(size) * nmemb);
+	array = malloc(size * nmemb);
 
 	char_array = array;
 
