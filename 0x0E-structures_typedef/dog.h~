@@ -1,0 +1,17 @@
+#ifndef _HEADER_
+#define _HEADER_
+
+/**
+ * struct dog - attributes of dog
+ * @name: dog's name
+ * @age: dog's age
+ * @owner: dog's owner
+ * Description: attributes of the dog
+ */
+
+struct dog
+{
+	char* name;
+	float age;
+	char* owner;
+};
