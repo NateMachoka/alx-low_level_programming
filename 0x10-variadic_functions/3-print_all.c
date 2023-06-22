@@ -67,6 +67,9 @@ void print_all(const char * const format, ...)
 
 	while (*format_ptr != '\0' && count < 9)
 	{
+		if (count > 0)
+			printf(", ");
+
 		if (*format_ptr == 'c')
 			print_char(va_arg(args, int));
 		else if (*format_ptr == 'i')
