@@ -13,24 +13,14 @@
 
 void print_opcodes(int num_bytes)
 {
-	unsigned char opcode;
-	int byte_count = 0;
+	unsigned char *ptr = (unsigned char *)__builtin_return_address(0);
+	int i;
 
-	FILE *file = fopen("a.out", "rb");
-		if (file == NULL)
-		{
-			printf("Error: Unable to open binary file\n");
-			exit(1);
-		}
-
-	while (fread(&opcode, sizeof(unsigned char), 1, file) && byte_count <
-	       num_bytes)
+	for (i = 0; i < num_bytes; i++)
 	{
-		printf("%02x ", opcode);
-		byte_count++;
+		printf("%02x ", ptr[i]);
 	}
 
-	fclose(file);
 	printf("\n");
 }
 
