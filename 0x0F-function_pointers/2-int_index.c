@@ -25,6 +25,13 @@ int int_index(int *array, int size, int (*cmp)(int))
 	return (-1);
 }
 
+/**
+ * compare - ...
+ * @value: ...
+ *
+ * Return: ...
+ */
+
 int compare(int value)
 {
 	if (value % 2 == 0)
