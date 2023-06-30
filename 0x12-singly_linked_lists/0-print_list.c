@@ -39,25 +39,6 @@ size_t print_list(const list_t *h)
 }
 
 /**
- * free_list - frees memory allocated to linked list
- * @h: a linked list
- *
- * Return: ...
- */
-
-void free_list(list_t *h)
-{
-	while (h != NULL)
-	{
-		list_t *temp = h;
-
-		h = h->next;
-		free(temp->str);
-		free(temp);
-	}
-}
-
-/**
   * _strlen - Returns the length of a string
   * @s: String to count
   *
