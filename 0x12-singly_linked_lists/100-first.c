@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "lists.h"
 
-void printStatement (void) __attribute__ ((constructor));
+void printStatement(void) __attribute__ ((constructor));
 /**
   * printStatement - prints statements before main function is printed
   *
