@@ -1,0 +1,78 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+
+#define BUFFER_SIZE 1024
+
+void exitWithError(const char *message, int arg) {
+    dprintf(STDERR_FILENO, message, arg);
+    exit(EXIT_FAILURE);
+}
+
+int openSourceFile(const char *fileFrom) {
+    int fdFrom = open(fileFrom, O_RDONLY);
+    if (fdFrom == -1) {
+        exitWithError("Error: Can't read from file %s\n", fileFrom);
+    }
+    return fdFrom;
+}
+
+int openDestinationFile(const char *fileTo) {
+    int fdTo = open(fileTo, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
+    if (fdTo == -1) {
+        exitWithError("Error: Can't write to %s\n", fileTo);
+    }
+    return fdTo;
+}
+
+void copyFileContent(int fdFrom, int fdTo) {
+    char buffer[BUFFER_SIZE];
+    ssize_t bytesRead, bytesWritten;
+    while ((bytesRead = read(fdFrom, buffer, BUFFER_SIZE)) > 0) {
+        bytesWritten = write(fdTo, buffer, bytesRead);
+        if (bytesWritten == -1) {
+            exitWithError("Error: Can't write to file\n", "");
+        }
+    }
+    if (bytesRead == -1) {
+        exitWithError("Error: Can't read from file\n", "");
+    }
+}
+
+void closeFile(int fd) {
+    if (close(fd) == -1) {
+        exitWithError("Error: Can't close fd %d\n", fd);
+    }
+}
+
+int main(int argc, char *argv[]) {
+    const char *fileFrom;
+    const char *fileTo;
+    int fdFrom;
+    int fdTo;
+
+    if (argc != 3) {
+        exitWithError("Usage: cp file_from file_to\n", "");
+    }
+
+    fileFrom = argv[1];
+    fileTo = argv[2];
+
+    fdFrom = openSourceFile(fileFrom);
+    fdTo = openDestinationFile(fileTo);
+
+    copyFileContent(fdFrom, fdTo);
+
+    if (close(fdFrom) == -1) {
+        exitWithError("Error: Can't close fd %d\n", fdFrom);
+    }
+
+    if (close(fdTo) == -1) {
+        exitWithError("Error: Can't close fd %d\n", fdTo);
+    }
+
+    return 0;
+}
