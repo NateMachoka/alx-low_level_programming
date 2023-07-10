@@ -13,10 +13,10 @@ ssize_t read_textfile(const char *filename, size_t letters);
 int _strlen(const char *str);
 int create_file(const char *filename, char *text_content);
 int append_text_to_file(const char *filename, char *text_content);
-void exitWithError(const char *message, const void *arg);
-int openSourceFile(const char *fileFrom);
-int openDestinationFile(const char *fileTo);
-void copyFileContent(int fdFrom, int fdTo);
+int open_source_file(const char *src);
+int open_destination_file(const char *dest);
+void copy_data(int source_fd, int destination_fd);
+void close_file(int fd, const char *filename);
 int main(int argc, char *argv[]);
 int _putchar(char c);
 
