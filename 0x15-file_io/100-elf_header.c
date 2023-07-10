@@ -40,9 +40,10 @@ void display_elf_header(const Elf64_Ehdr *header)
 {
 	int i;
 
-	printf("Magic:   ");
+	printf("ELF Header:\n");
+	printf("  Magic:   ");
 
-	for (i = 0; i < 4; i++)
+	for (i = 0; i < 16; i++)
 		printf("%02x ", header->e_ident[i]);
 
 	printf("\n");
@@ -57,24 +58,27 @@ void display_elf_header(const Elf64_Ehdr *header)
 
 	printf("Version:                         %d (current)\n", header->e_ident[6]);
 
-	printf("OS/ABI:                          %s\n",
-	       header->e_ident[7] == 0 ? "System V" :
-	       header->e_ident[7] == 1 ? "HP-UX" :
-	       header->e_ident[7] == 2 ? "NetBSD" :
-	       header->e_ident[7] == 3 ? "Linux" :
-	       header->e_ident[7] == 6 ? "Solaris" :
-	       header->e_ident[7] == 7 ? "AIX" :
-	       header->e_ident[7] == 8 ? "IRIX" :
-	       header->e_ident[7] == 9 ? "FreeBSD" :
-	       header->e_ident[7] == 10 ? "Tru64" :
-	       header->e_ident[7] == 11 ? "Novell Modesto" :
-	       header->e_ident[7] == 12 ? "OpenBSD" :
-	       header->e_ident[7] == 13 ? "OpenVMS" :
-	       header->e_ident[7] == 14 ? "NonStop Kernel" :
-	       header->e_ident[7] == 15 ? "AROS" :
-	       header->e_ident[7] == 16 ? "Fenix OS" :
-	       header->e_ident[7] == 17 ? "CloudABI" :
-	       "Unknown");
+	printf("  OS/ABI:                            ");
+	switch (header->e_ident[7])
+	{
+	case 0: printf("UNIX - System V\n"); break;
+	case 1: printf("HP-UX\n"); break;
+	case 2: printf("NetBSD\n"); break;
+	case 3: printf("Linux\n"); break;
+	case 6: printf("Solaris\n"); break;
+	case 7: printf("AIX\n"); break;
+	case 8: printf("IRIX\n"); break;
+	case 9: printf("FreeBSD\n"); break;
+	case 10: printf("Tru64\n"); break;
+	case 11: printf("Novell Modesto\n"); break;
+	case 12: printf("OpenBSD\n"); break;
+	case 13: printf("OpenVMS\n"); break;
+	case 14: printf("NonStop Kernel\n"); break;
+	case 15: printf("AROS\n"); break;
+	case 16: printf("Fenix OS\n"); break;
+	case 17: printf("CloudABI\n"); break;
+	default: printf("<unknown: %d>\n", header->e_ident[7]);
+	}
 
 	printf("ABI Version:                     %d\n", header->e_ident[8]);
 
