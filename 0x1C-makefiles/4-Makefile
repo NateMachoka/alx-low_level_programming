@@ -1,25 +1,24 @@
 CC = gcc
 SRC = main.c school.c
-OBJ = $(SRC:%.c=%.o)
+OBJ = ${SRC:%.c=%.o}
 NAME = school
 RM = rm -f
 CFLAGS = -Wall -Werror -Wextra -pedantic
 
-all: ${OBJ}
-	${CC} ${CFLAGS} ${OBJ} -o {NAME}
+%.o: %.c m.h
+	${CC} ${CFLAGS} -c -o $@ $<
 
 #compiles source files into object files
-%.o:%.c
-	${CC} ${CFLAGS} -c $< -o $@
+all: ${OBJ}
+	${CC} ${CFLAGS} ${OBJ} -o ${NAME}
 
 .PHONY: clean oclean fclean re
-
 clean:
-	${RM} ${NAME} *~
+	${RM} *~ ${NAME}
 
 oclean:
 	${RM} ${OBJ}
 
 fclean: clean oclean
 
-re:fclean all
+re: oclean all
