@@ -7,6 +7,7 @@ zone and 1 represents a land zone. The grid is completely surrounded by water
 and contains exactly one island without any lakes.
 """
 
+
 def island_perimeter(grid):
     """
     Calculates the perimeter of the island described in the grid.
