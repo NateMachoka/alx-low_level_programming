@@ -5,5 +5,5 @@ SRC = main.c school.c
 
 #rules to build the executable
 
-all: $SRC
-	$CC $SRC -o school
+all: ${SRC}
+	${CC} ${SRC} -o school
