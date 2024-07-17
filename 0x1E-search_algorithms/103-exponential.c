@@ -36,21 +36,20 @@ void print_array(int *array, size_t low, size_t high)
 
 int binary_search_range(int *array, size_t low, size_t high, int value)
 {
-    size_t mid;
+	size_t mid;
 
-    while (low <= high)
-    {
-        print_array(array, low, high);
-        mid = low + (high - low) / 2;
-        if (array[mid] == value)
-            return (mid);
-        if (array[mid] < value)
-            low = mid + 1;
-        else
-            high = mid - 1;
-    }
-
-    return (-1);
+	while (low <= high)
+	{
+		print_array(array, low, high);
+		mid = low + (high - low) / 2;
+		if (array[mid] == value)
+			return (mid);
+		if (array[mid] < value)
+			low = mid + 1;
+		else
+			high = mid - 1;
+	}
+	return (-1);
 }
 
 /**
